@@ -343,13 +343,13 @@ export default function AttendancePage() {
                 "
               >
 
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-2xl overflow-hidden">
-              <img
-                src="/sfx_logo.png"
-                alt="SFX Logo"
-                className="w-full h-full object-contain"
-              />
-            </div>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-2xl overflow-hidden">
+                  <img
+                    src="/sfx_logo.png"
+                    alt="SFX Logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
 
               </div>
 
@@ -505,13 +505,27 @@ export default function AttendancePage() {
 
                 <div className="flex items-center gap-2">
 
-                  <span className="w-2 h-2 bg-green-500 rounded-full" />
+                  {/* <span className="w-2 h-2 bg-green-500 rounded-full" /> */}
 
-                  <span className="font-medium text-green-700">
+                  <div className="flex items-center gap-2">
 
-                    {employee[73]}
+                    <span
+                      className={`w-2 h-2 rounded-full ${employee[73]?.trim().toUpperCase() === "ACTIVE"
+                          ? "bg-green-500"
+                          : "bg-red-500"
+                        }`}
+                    />
 
-                  </span>
+                    <span
+                      className={`font-medium ${employee[73]?.trim().toUpperCase() === "ACTIVE"
+                          ? "text-green-700"
+                          : "text-red-700"
+                        }`}
+                    >
+                      {employee[73]}
+                    </span>
+
+                  </div>
 
                 </div>
 
@@ -559,7 +573,7 @@ export default function AttendancePage() {
           <SummaryCard
             title="LWP"
             value={employee[66]}
-            subtitle="Loss of pay"
+            subtitle="Leave Without Pay"
             valueClass="text-orange-500"
           />
 
@@ -666,12 +680,19 @@ export default function AttendancePage() {
                   actualStatus = "A";
                 }
 
+                if (status === "HD") {
+                  actualStatus = "HD";
+                }
                 if (status === "PL") {
                   actualStatus = "PL";
                 }
 
                 if (status === "NA") {
                   actualStatus = "NA";
+                }
+
+                if (status === "Left") {
+                  actualStatus = "Left";
                 }
 
                 if (status === "") {
@@ -936,12 +957,12 @@ function AttendanceDayCard({
     },
 
     HD: {
-      card: "bg-yellow-50 border-yellow-200",
-      date: "text-yellow-700",
-      status: "text-yellow-700",
+      card: "bg-pink-50 border-pink-200",
+      date: "text-pink-700",
+      status: "text-pink-700",
     },
 
-    HL: {
+    Left: {
       card: "bg-yellow-50 border-yellow-200",
       date: "text-yellow-700",
       status: "text-yellow-700",
