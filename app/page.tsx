@@ -58,15 +58,18 @@ export default function Home() {
         "Unable to load employee data. Please try again."
       );
     } finally {
-      setLoading(false);
-
+      // Loading screen stays for a little moment
       setTimeout(() => {
+        setLoading(false);
+
+        // Immediately show Welcome screen
         setShowWelcome(true);
 
+        // After welcome animation, show login screen
         setTimeout(() => {
           setShowWelcome(false);
         }, 2600);
-      }, 150);
+      }, 500);
     }
   };
 
