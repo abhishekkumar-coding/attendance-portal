@@ -16,7 +16,7 @@ export default function Home() {
   const [searching, setSearching] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const router = useRouter();
-
+  const [topRow, setTopRow] = useState<string[]>([]);
   /* =====================================================
      FETCH ALL EMPLOYEES
   ===================================================== */
@@ -41,6 +41,12 @@ export default function Home() {
       }
 
       const data = await response.json();
+
+      const topRow = data.data[1];
+
+      setTopRow(topRow);
+
+      console.log("Top Row:", topRow);
 
       console.log("API Response:", data);
 
@@ -111,6 +117,11 @@ export default function Home() {
     sessionStorage.setItem(
       "employeeData",
       JSON.stringify(employee)
+    );
+
+    sessionStorage.setItem(
+      "topRow",
+      JSON.stringify(topRow)
     );
 
     sessionStorage.setItem(

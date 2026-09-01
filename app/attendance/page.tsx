@@ -15,7 +15,15 @@ export default function AttendancePage() {
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [topRow, setTopRow] = useState<string[]>([]);
 
+  useEffect(() => {
+    const storedTopRow = sessionStorage.getItem("topRow");
+
+    if (storedTopRow) {
+      setTopRow(JSON.parse(storedTopRow));
+    }
+  }, []);
   console.log("employee:", employee);
 
   /* =======================================================
@@ -678,10 +686,9 @@ export default function AttendancePage() {
                         rounded-full
                         opacity-75
                         animate-ping
-                        ${
-                          isActive
-                            ? "bg-green-400"
-                            : "bg-red-400"
+                        ${isActive
+                          ? "bg-green-400"
+                          : "bg-red-400"
                         }
                       `}
                     />
@@ -693,10 +700,9 @@ export default function AttendancePage() {
                         h-2.5
                         w-2.5
                         rounded-full
-                        ${
-                          isActive
-                            ? "bg-green-500"
-                            : "bg-red-500"
+                        ${isActive
+                          ? "bg-green-500"
+                          : "bg-red-500"
                         }
                       `}
                     />
@@ -706,10 +712,9 @@ export default function AttendancePage() {
                   <span
                     className={`
                       font-bold
-                      ${
-                        isActive
-                          ? "text-green-700"
-                          : "text-red-700"
+                      ${isActive
+                        ? "text-green-700"
+                        : "text-red-700"
                       }
                     `}
                   >
@@ -840,7 +845,7 @@ export default function AttendancePage() {
                     </h3>
 
                     <p className="text-xs text-slate-500">
-                      August 2026
+                      September 2026
                     </p>
 
                   </div>
@@ -851,7 +856,7 @@ export default function AttendancePage() {
 
               {/* Branch */}
 
-              <div
+              {/* <div
                 className="
                   hidden
                   sm:flex
@@ -879,7 +884,7 @@ export default function AttendancePage() {
 
                 {employee[17] || "-"}
 
-              </div>
+              </div> */}
 
             </div>
 
@@ -938,10 +943,7 @@ export default function AttendancePage() {
                   return (
                     <AttendanceDayCard
                       key={index}
-                      date={`${String(index + 1).padStart(
-                        2,
-                        "0"
-                      )}-Aug`}
+                      date={topRow[index + 29]}
                       status={actualStatus}
                       delay={index}
                     />
