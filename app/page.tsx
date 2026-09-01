@@ -42,7 +42,7 @@ export default function Home() {
 
       const data = await response.json();
 
-      const topRow = data.data[1];
+      const topRow = data.data[0];
 
       setTopRow(topRow);
 
@@ -96,11 +96,17 @@ export default function Home() {
     setSearching(true);
     setError("");
 
-    const employee = employees.find(
-      (item) =>
-        item[0]?.trim().toLowerCase() ===
-        id.toLowerCase()
-    );
+    const searchId = employeeId.trim().toUpperCase();
+
+    const employee = employees.find((emp) => {
+      const valinorId = emp[0]?.trim().toUpperCase();
+      const tempEmpCode = emp[2]?.trim().toUpperCase();
+
+      return (
+        valinorId === searchId ||
+        tempEmpCode === searchId
+      );
+    });
 
     console.log("Entered ID:", id);
     console.log("Employee Found:", employee);
